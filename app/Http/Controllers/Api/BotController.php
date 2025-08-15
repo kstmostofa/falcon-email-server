@@ -133,7 +133,11 @@ class BotController extends Controller
     {
         $vps = Vps::query()
             ->where('ip_address', $request->ip())
-            ->firstOrFail();
+            ->first();
+
+        if(!$vps) {
+            return response()->json(['error' => 'VPS not found'], 404);
+        }
 
         $vps->update(['last_heartbeat' => now()]);
 
