@@ -14,7 +14,7 @@ class ContactController extends Controller
     public function index()
     {
         return Inertia::render('contact/index', [
-            'botTypes' => BotType::all(),
+            'botTypes' => BotType::all([BotType::GMAIL_API_OAUTH->value]),
         ]);
     }
 

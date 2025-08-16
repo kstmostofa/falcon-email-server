@@ -5,7 +5,7 @@ import CardLayout from '@/layouts/card-layout';
 import { getColumns } from '@/pages/vps/columns';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/react';
-import { Binary, Plus } from 'lucide-react';
+import { Binary, Play, Trash } from 'lucide-react';
 import { useMemo, useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -34,6 +34,18 @@ export default function VpsIndex() {
                             <Button>
                                 <Binary />
                                Update All Vps IP Address
+                            </Button>
+                        </Link>
+                        <Link href={route('update_all_vps_ip_address')}>
+                            <Button variant="secondary" className="bg-green-500 text-white">
+                                <Play />
+                                Start Mailing
+                            </Button>
+                        </Link>
+                        <Link href={route('update_all_vps_ip_address')}>
+                            <Button variant="destructive">
+                                <Trash />
+                                Delete All VPS
                             </Button>
                         </Link>
                     </div>

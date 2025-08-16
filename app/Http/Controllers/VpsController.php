@@ -56,11 +56,13 @@ class VpsController extends Controller
         try {
             $tencent->terminateInstance($vps->instance_id);
         } catch (Exception $e) {
-            return redirect()->back()->with('error', 'Failed to delete VPS: ' . $e->getMessage());
+            session()->flash('error', 'Maybe the VPS is already deleted or terminated from the provider. anyway, it has been removed from the list.');
         }
         $vps->delete();
         return redirect()->route('vps.index')->with('success', 'VPS deleted successfully.');
     }
+
+
 
     public function updateAllIpAddresses(Request $request)
     {

@@ -18,6 +18,7 @@ class CheckApiKey
     {
         $except = [
             'api/generate-api-key',
+            'api/get-bot',
         ];
 
         if ($request->is($except)) {

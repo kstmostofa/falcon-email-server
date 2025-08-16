@@ -15,7 +15,7 @@ class SmtpController extends Controller
     public function index()
     {
         return Inertia::render('smtp/index', [
-            'botTypes' => BotType::all(),
+            'botTypes' => BotType::all([BotType::GMAIL_API->value]),
         ]);
     }
 

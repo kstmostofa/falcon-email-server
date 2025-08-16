@@ -76,23 +76,15 @@ export default function SMTPIndex({
     });
 
     const submit = (e: React.FormEvent<HTMLFormElement>) => {
-        console.log('Submitting form with data:', data);
         e.preventDefault();
         post(route('tasks.store'), {
             preserveScroll: true,
             preserveState: true,
             onSuccess: () => {
-                console.log('Form submitted successfully:', data);
                 setOpen(false);
                 reset();
                 setRefresh((prev) => !prev);
             },
-            onError: (errors) => {
-                console.error('Form submission error:', errors);
-            },
-            onFinish: () => {
-                console.log('Form submission finished');
-            }
         });
     };
 

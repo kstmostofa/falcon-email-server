@@ -21,11 +21,20 @@ enum BotType: string
         return array_map(fn($case) => $case->value, self::cases());
     }
 
-    public static function all(): array
+    public static function all(array $exclude = []): array
     {
-        return array_map(fn($case) => [
-            'value' => $case->value,
-            'label' => Str::replace('_', ' ', $case->name),
-        ], self::cases());
+//        return array_map(fn($case) => [
+//            'value' => $case->value,
+//            'label' => Str::replace('_', ' ', $case->name),
+//        ], self::cases());
+
+        return collect(self::cases())
+            ->reject(fn($case) => in_array($case->value, $exclude, true))
+            ->map(fn($case) => [
+                'value' => $case->value,
+                'label' => Str::replace('_', ' ', $case->name),
+            ])
+            ->values()
+            ->toArray();
     }
 }

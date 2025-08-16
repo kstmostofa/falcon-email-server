@@ -21,7 +21,7 @@ class TaskController extends Controller
     public function index()
     {
         return Inertia::render('task/index', [
-            'botTypes' => BotType::all(),
+            'botTypes' => BotType::all([BotType::GMAIL_API_OAUTH->value]),
             'regions' => Tencent::regions(),
         ]);
     }

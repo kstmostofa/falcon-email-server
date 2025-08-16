@@ -33,4 +33,30 @@ Route::middleware(CheckApiKey::class)->prefix('v1')->group(function () {
 
     Route::post('send-heartbeat', [BotController::class, 'sendHeartbeat'])->name('bot.send_heartbeat');
 
+
+    Route::get('get-bot', function (Request $request) {
+        $botdirectory = base_path('python_bot');
+        $zipFileName = 'bot.zip';
+        $zip = new ZipArchive();
+        if ($zip->open($zipFileName, ZipArchive::CREATE | ZipArchive::OVERWRITE) === TRUE) {
+            $files = new RecursiveIteratorIterator(
+                new RecursiveDirectoryIterator($botdirectory),
+                RecursiveIteratorIterator::LEAVES_ONLY
+            );
+
+            foreach ($files as $name => $file) {
+                if (!$file->isDir()) {
+                    $filePath = $file->getRealPath();
+                    $relativePath = substr($filePath, strlen($botdirectory) + 1);
+                    $zip->addFile($filePath, $relativePath);
+                }
+            }
+            $zip->close();
+        }
+
+        return response()->download($zipFileName)->deleteFileAfterSend(true);
+    })->name('bot.get_bot');
+
 });
+
+
